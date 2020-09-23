@@ -1,0 +1,60 @@
+.main-contain { 
+    position: fixed;   
+    background: none;
+    width: 100%;
+    top:90%;
+    height:60px;
+    z-index: 3;    
+  }
+  .main-contain .dock {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    left: 0;
+    z-index: 3;
+  }
+  
+  .main-contain span {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 100px;
+    display: block;
+    opacity: 0.2;
+  }
+  .main-contain .dock-nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+    padding: 20px;
+    position: relative;
+  }
+  .main-contain .dock-nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0 10px;
+    position: relative;
+    transition: all 0.3s linear;
+    cursor: pointer;
+  }
+  .main-contain .dock-nav ul li img {
+    width: 50px;
+        -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),-webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-box-reflect: below 8px -webkit-gradient(linear, right top, right
+          bottom, from(transparent), to(rgba(255, 255, 255, 0.4)));
+  }
+  .main-contain .dock-nav ul li:hover img {
+    transform: translateY(-15px) scale(1.2);
+  }
+  .main-contain .dock-nav ul li.other img {
+    transform: translateY(-5px);
+  }
+  

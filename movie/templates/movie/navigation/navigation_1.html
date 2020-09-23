@@ -1,0 +1,60 @@
+<!-- Main Contain -->
+		<div class="main-contain">
+
+				
+				<!-- Dock Contain -->
+				<div class="dock">
+					<!-- Nav Background -->					
+					<span>
+						<img src="https://image.ibb.co/mHAnwK/nav.png" class="img-fluid" alt="nav">
+					</span>
+					<!-- Dock Nav -->
+					<div class="dock-nav">
+						<ul>							
+							<li>
+								<a href="{% url 'index' username=username %}">
+								<img src="https://static.thenounproject.com/png/2265577-200.png" class="img-fluid" alt="mac">
+								</a>
+							</li>							
+							<li>
+							   <a href="{% url 'posts' username=username %}">
+								<img src="https://pngimage.net/wp-content/uploads/2018/06/gallery-button-png-2.png" class="img-fluid" alt="mac">
+								</a>
+							</li>
+							<li>
+							 {% if user.is_authenticated %} 
+        						<a href="{% url 'connections' username=username %}">        
+								<img src="http://www.macosicongallery.com/icons/screenflow-7-2017-08-17/128.png" class="img-fluid" alt="mac"></a>
+							{%endif%}
+							</li>
+							<li>
+								<a href="{% url 'photos' username=username %}"><img src="https://icons.veryicon.com/png/Application/iOS7%20Redesign/Pictures.png" class="img-fluid" alt="mac1"></a>								  
+							</li>
+							<li>
+								<a href="videos"><img src="https://lh3.googleusercontent.com/proxy/cowhL5jZDV_4vvlmxbjUSJ6MkfRQFOH54LTzuC92kOxBi79ZNsuDLDwicwqHPerM7RUG6FbQgEUROgouFR1keDpAd1XCUDKAszz3StxpioQH-Tghqgh_" class="img-fluid" alt="mac"></a>
+							</li>
+							<li>
+							{% if user.is_authenticated %} 
+								<a href="{% url 'search' username=username %}"><img src="http://www.macosicongallery.com/icons/linea-link-2017-07-28/128.png" class="img-fluid" alt="mac"></a>
+							{%endif%}
+							</li>
+							<li>
+								<a href="{% url 'events' username=username %}"><img src="http://www.macosicongallery.com/icons/rapidweaver-7-2017-05-19/128.png" class="img-fluid" alt="mac"></a>
+							</li>
+							<li>
+								<img src="http://www.macosicongallery.com/icons/owly-display-sleep-prevention-2017-03-20/128.png" class="img-fluid" alt="mac">
+							</li>
+							{% if user.is_authenticated %}
+							<li>
+              					<a href="{% url 'logout' %}"><img src="https://cdn.pixabay.com/photo/2014/04/02/10/49/sign-304695__340.png" class="img-fluid" alt="mac"></a>
+							</li>
+							{% else %}                  
+							<li>
+              					<a href="{% url 'loginurl' %}"><img class="img-fluid" alt="mac">Login</a>
+							</li>			
+							{%endif%}
+						</ul>
+					</div>
+				</div>
+			
+		</div>

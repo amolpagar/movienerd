@@ -1,0 +1,265 @@
+h1 {
+  font-family: 'Vidaloka', serif;
+  float: left;
+  width: 100%;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+  font-size: 30px;
+  position: relative;
+  z-index: 3;
+}
+h1 span {
+  font-family: 'Vidaloka', serif;
+  display: block;
+  color: #000;
+  font-size: 150px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+section {
+  float: left;
+  width: 100%;
+  padding: 30px 0;
+  position: relative;
+  overflow: hidden;
+  background: #6F8D8A;
+}
+section:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fadc0b;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23fab516' fill-opacity='1' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+  z-index: 0;
+  -webkit-transform: scale(2);
+  -ms-transform: scale(2);
+  transform: scale(2);
+}
+h3 {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: 'Vidaloka', serif;
+  color: #000;
+}
+.mb-5 {
+  font-size: 48px;
+}
+.btn-default {
+  background: #DFC717;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+}
+.card {
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid #f3f3f1;
+  margin-bottom: 20px;
+}
+.card-01 .card-body {
+  position: relative;
+  padding-top: 15px;  
+}
+.card-01:hover {
+    box-shadow: 0px 0px 50px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.1);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.1);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.1);
+    transition: all 200ms ease-in;
+    transform: scale(1.1);
+}
+.card-01 .badge-box {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  text-align: center;
+}
+
+.card-01 .badge-box-add {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  text-align: center;
+}
+
+.card-01 .badge-box i {
+  background: rgb(207, 20, 20);
+  color: #fff;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.card-01 .badge-box-add i {
+  background: rgb(30, 30, 31);
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 15px;
+}
+
+.profile-box {
+  background-size: cover;
+  float: left;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+  overflow: hidden;
+}
+.profile-box:before {
+  background-color: #777777;
+  background-image: url("https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb");
+  width: 100%;
+  position: absolute;
+  content: "";
+  left: -10%;
+  top: 0;
+  z-index: 0;
+}
+.profile-box img {
+  width: 170px;
+  height: 170px;
+  position: relative;
+  border: 5px solid #fff;
+}
+.social-box i {
+  border: 1px solid rgb(202, 81, 87);
+  color: rgb(182, 29, 62);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  line-height: 30px;
+}
+.social-box i:hover {
+  background: rgb(245, 50, 186);
+  color: #fff;
+}
+.social-box a {
+  margin: 0 5px;
+}
+
+.card-01 .height-fix .card-img-overlay {
+  top: inherit;
+  color: #fff;
+  background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* IE10+ */
+}
+.card-01 .height-fix .fa {
+  color: #fff;
+  font-size: 22px;
+  margin-right: 18px;
+}
+.card-01 .height-fix .card-img-top {
+  width: auto;
+  height: 350px;
+}
+
+a, a:hover, a:focus {
+  text-decoration: none;
+}
+
+/*flipper-card*/
+.card-flipper {
+  position: relative;
+  float: left;
+  width: 100%;
+  text-align: center;
+  height: 350px;
+}
+
+.card__front, .card__back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card__back .card {
+  width: 100%;
+  height: 350px;
+}
+
+.card__front, .card__back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.card__front {
+  background-color:none ;
+}
+
+.card__back {
+  background-color: #1e1e1e;
+  -webkit-transform: rotateY(-180deg);
+   -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}
+
+.card-flipper.effect__hover:hover .card__front {
+  -webkit-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}
+
+.card-flipper.effect__hover:hover .card__back {
+  -webkit-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+.card-flipper.effect__random.flipped .card__front {
+  -webkit-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}
+
+.card-flipper.effect__random.flipped .card__back {
+  -webkit-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+.avatar {
+  border: 0.3rem solid rgba(#fff, 0.3);
+  margin-top: -6rem;
+  margin-bottom: 1rem;
+  max-width: 9rem;
+}
+
+.evet-card > .card .list-inline-item {
+  color: #f1d79a;
+  font-size: 15px;
+}
+.evet-card > .card .badge {
+  background: #ba9643;
+}
+.evet-card > .card {
+  background: #383737;
+}

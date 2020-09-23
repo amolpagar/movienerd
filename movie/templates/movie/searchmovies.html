@@ -1,0 +1,79 @@
+{% extends "movie/base.html" %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'movie/watchlist.css' %}">
+{% endblock %}
+{% block body %}
+
+<div class="container">
+ 
+ <div class="row">
+    <div class="col-md-12"> 
+      {% include "movie/searchbox.html" with name="moviename" placeholder="Search movies.."%}       
+     </div>    
+ </div>
+ 
+
+ 
+  <br>
+  <div class="row">
+    {% if user.is_authenticated and not Error %}
+   
+  <div class="movie_card" id="bright">
+  <div class="info_section">
+    <div class="movie_header">
+      <img class="locandina" src="{{movies.Poster}}"/>
+      <h1>{{movies.Title}}</h1>
+      <h4>{{movies.Year}}</h4>
+      <span class="minutes">{{movies.Runtime}}</span>
+      <p class="type">{{movies.Genre}}</p>
+    </div>
+    <div class="movie_desc">
+      <p class="text">
+        {{movies.Plot}}
+      </p>
+      <p class="text">
+        Cast:{{movies.Actors}}
+      </p>
+    </div>
+    <div>
+        <a class="btn" href=""><i class="fa fa-plus"> Recommend</i></a>                
+      </div>
+  </div>
+  <div style="background: url({{movies.Poster}});" class="blur_back"></div>
+</div>   
+   {%else%}
+  <p>Movie not found: "{{title}}"</p>
+    {% endif %}
+
+  </div>
+{% comment %} 
+  {% if showpagination %}
+   <div class="row">
+        <div class="col-md-3 offset-md-9">
+            <ul class="pagination justify-content-end"">
+                {% if movies.has_previous%}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{movies.previous_page_number}}">Previous</a>
+                    </li>
+                {%endif%}
+                
+                {% if showpagination %}
+                <li class="page-item active">
+                        <a class="page-link" href="?page={{movies.number}}">Current</a>
+                </li>                
+                {%endif%}
+
+                {% if movies.has_next%}
+                    <li class="page-item">
+                        <a class="page-link"  href="?page={{movies.next_page_number}}">Next</a>
+                    </li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+  {% endif %} {% endcomment %}
+
+</div>
+
+{% endblock %}
