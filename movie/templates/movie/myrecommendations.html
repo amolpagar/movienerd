@@ -7,8 +7,15 @@
 {% block body %}
 
 <div class="container">
+  {% if not user.is_authenticated %}
+  <div class="row">
+      <div class="col-md-2 offset-10">
+        <a class="btn btm-sm btn-primary" href="{% url 'subscribe' username=username %}">Subscribe</a>
+      </div>
+  </div>
+  {%endif%}
    <div class="row">
-    {% if user.is_authenticated and not Error %}
+    {% if movies %}
   {%for movie_item in movies %} 
   <div class="movie_card" id="bright">
   <div class="info_section">
@@ -34,7 +41,8 @@
   <div style="background: url({{movie_item.poster}});" class="blur_back"></div>
 </div>   
 {%endfor%}
-   {%else%}
+    {% endif %}
+    {% if user.is_authenticated and Error %}
 <p>Movie not found: "{{title}}"</p>
     {% endif %}
 

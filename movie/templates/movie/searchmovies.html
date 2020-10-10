@@ -12,41 +12,41 @@
       {% include "movie/searchbox.html" with name="moviename" placeholder="Search movies.."%}       
      </div>    
  </div>
- 
-
- 
-  <br>
-  <div class="row">
-    {% if user.is_authenticated and not Error %}
-   
+<div class="row">
+ {% if user.is_authenticated and response.total_results > 0 %}
+  {%for movie in response.results %}
   <div class="movie_card" id="bright">
-  <div class="info_section">
-    <div class="movie_header">
-      <img class="locandina" src="{{movies.Poster}}"/>
-      <h1>{{movies.Title}}</h1>
-      <h4>{{movies.Year}}</h4>
-      <span class="minutes">{{movies.Runtime}}</span>
-      <p class="type">{{movies.Genre}}</p>
-    </div>
-    <div class="movie_desc">
-      <p class="text">
-        {{movies.Plot}}
-      </p>
-      <p class="text">
-        Cast:{{movies.Actors}}
-      </p>
-    </div>
-    <div>
-        <a class="btn" href=""><i class="fa fa-plus"> Recommend</i></a>                
+    <div class="info_section">
+      <div class="movie_header">
+        <img class="locandina" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}"/>
+        <h1>{{movie.title}}</h1>
+        <h4>{{movie.release_date}}</h4>
+        {% comment %} <span class="minutes">{{movie.runtime}}</span> {% endcomment %}
+        {% comment %} <p class="type">{{movie.genre}}</p> {% endcomment %}
       </div>
-  </div>
-  <div style="background: url({{movies.Poster}});" class="blur_back"></div>
-</div>   
-   {%else%}
-  <p>Movie not found: "{{title}}"</p>
+      <div class="movie_desc">
+        <p class="text">
+          {{movie.overview}}
+        </p>
+        <p class="text">
+          {% comment %} Cast:{{movie.cast}} {% endcomment %}
+        </p>
+      </div>
+      <div>
+        <a class="btn btn-sm btn-primary pull-right" href=""><i class="fa fa-plus"> Recommend</i></a>                
+      </div>
+    </div>
+    <div style="background: url('https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}');" class="blur_back"></div>
+  </div> 
+{% endfor %}
+{% endif %}  
+    {% if user.is_authenticated and response.total_results == 0 %}
+    <div class="row offset-1">  
+      <br><br>Movie not found: {{title}}</p>
+    </div>
     {% endif %}
 
-  </div>
+</div>
 {% comment %} 
   {% if showpagination %}
    <div class="row">

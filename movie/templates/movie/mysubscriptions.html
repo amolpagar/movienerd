@@ -3,9 +3,17 @@
 {% block body %}
 
 <div class="container">
-  <div class="row">
-    <h4>My Subscriptions</h4>
-  </div>
+ <div class="row">
+    <div class="col-md-12"> 
+      {% include "movie/searchbox.html" with name="user_name" placeholder="Search users.."%}       
+     </div>    
+ </div>
+
+ <div class="row">
+    {% for each_user in searched_users %}
+      <a>{{each_user.first_name}}</a>
+    {%endfor%}
+ </div> 
 </div>
 
 {% endblock %}

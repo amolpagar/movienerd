@@ -28,9 +28,9 @@ urlpatterns = [
     path('logout/', user_views.logout_view, name="logout"),
     path('register/', user_views.register, name="register"),
  
-    path('<str:username>/', movie_views.index, name='index'), # This page is used to search movies and recommend, only visitble to logged in user
+    path('<str:username>/', movie_views.searchmovie, name='index'), # This page is used to search movies and recommend, only visitble to logged in user
     path('<str:username>/searchmovie/', movie_views.searchmovie, name='searchmovies'), # This page is used to search movies and recommend, only visitble to logged in user
-    path('<str:username>/recommend/', movie_views.recommend, name='searchmovies'), # This button is used to recommend searched movies only visitble to logged in user
+    path('<str:username>/recommend/', movie_views.recommend, name='recommend'), # This button is used to recommend searched movies only visitble to logged in user
     path('<str:username>/myrecommendations/', movie_views.myrecommendations, name='myrecommendations'), # This page is used to display all recommendations of users
     path('<str:username>/subscribe/', movie_views.subscribe, name='subscribe'), # This button on myrecommendations page will subscribe user with recommendations
     path('<str:username>/mysubscriptions/', movie_views.mysubscriptions, name='mysubscriptions'), # This page will load all recommendations from other subscribed users
