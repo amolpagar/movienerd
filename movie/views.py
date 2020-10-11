@@ -91,8 +91,13 @@ def mysubscriptions(request, username):
         page = request.GET.get('page')
         searched_users_page  = paginator.get_page(page)
 
-    mysubscriptions = Subscription.objects.get(user=request.user.id)
-    context = {"searched_users":searched_users, "mysubscriptions": mysubscriptions}
+    mysubscriptions = Subscription.objects.filter(user=request.user.id)
+    subscribed_users = []
+    for each_subscription in mysubscriptions:
+        user = User.objects.get(id=each_subscription.subscribing_user_id)
+        subscribed_users.append(user)
+
+    context = {"searched_users":searched_users, "subscribed_users": subscribed_users}
     return render(request, "movie/mysubscriptions.html", context)
 
 @login_required

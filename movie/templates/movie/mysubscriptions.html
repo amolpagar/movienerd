@@ -9,11 +9,24 @@
      </div>    
  </div>
 
- <div class="row">
-    {% for each_user in searched_users %}
-      <a>{{each_user.first_name}}</a>
+   {% for each_user in searched_users %}
+     <div class="row">
+      <div class="col-md-3 offset-3 pt-4">
+         <a href="">{{each_user.first_name}} {{each_user.last_name}}</a>
+         <a class="btn btn-sm btn-danger pull-right">subscribe</a>                      
+      </div>  
+    </div>
     {%endfor%}
- </div> 
+
+ {% for each_subscription in subscribed_users %}
+ <br>
+ <div class="row">
+      <div class="col-md-3 offset-3 pt-4">
+         <a href="">{{each_subscription.first_name}} {{each_subscription.last_name}}</a>
+         <a class="btn btn-sm btn-danger pull-right">unsubscribe</a>                      
+      </div>  
+ </div>
+ {%endfor%}
 </div>
 
 {% endblock %}
