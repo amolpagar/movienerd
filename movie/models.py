@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 # 'Metascore': 'NA', 'imdbRating': '8.0', 'imdbVotes': '31', 'imdbID': 'tt4771744', 'Type': 'movie', 
 # 'DVD': 'NA', 'BoxOffice': 'N/A', 'Production': 'NA', 'Website': 'NA', 'Response': 'True'}
 class Movie(models.Model):   
-
+    
     title = models.CharField(max_length=50)
     cast = ArrayField(models.CharField(max_length=200), blank=True)
     year = models.DateField(auto_now=False, auto_now_add=False)
@@ -18,7 +18,7 @@ class Movie(models.Model):
     genre = models.CharField( max_length=50,blank=True)
     director = models.CharField( max_length=50,blank=True)
     writer = models.CharField( max_length=50, blank=True)
-    plot = models.CharField( max_length=350, blank=True)
+    plot = models.CharField( max_length=3500, blank=True)
     language = models.CharField( max_length=50, blank=True)
     country = models.CharField( max_length=10, blank=True)
     awards = models.CharField( max_length=50, blank=True)
@@ -27,6 +27,7 @@ class Movie(models.Model):
     imdbVotes = models.CharField( max_length=10, blank=True)
     category = models.CharField( max_length=50, blank=True )
     platform = ArrayField(models.CharField(max_length=200), blank=True)
+    
  
     def __str__(self):
         return self.title
@@ -64,4 +65,3 @@ class Watch(models.Model):
     def __str__(self):
         return str(self.user)
 
-    

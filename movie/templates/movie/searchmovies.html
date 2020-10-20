@@ -32,8 +32,8 @@
           {% comment %} Cast:{{movie.cast}} {% endcomment %}
         </p>
       </div>
-      <div>
-        <a class="btn btn-sm btn-primary pull-right offset-1" href=""><i class="fa fa-plus"> Add to Watchlist</i></a>
+      <div>        
+        <a class="btn btn-sm btn-primary pull-right offset-1" id="add_watchlist" href="{% url 'addtowatchlist' %}?movie={{movie}}"><i class="fa fa-plus"> Add to Watchlist</i></a>
         <a class="btn btn-sm btn-primary pull-right" href=""><i class="fa fa-plus"> Recommend</i></a>                
       </div>
     </div>
@@ -78,3 +78,8 @@
 </div>
 
 {% endblock %}
+
+{% block script%}
+
+
+{%endblock%}

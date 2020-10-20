@@ -35,4 +35,5 @@ urlpatterns = [
     path('<str:username>/subscribe/', movie_views.subscribe, name='subscribe'), # This button on myrecommendations page will subscribe user with recommendations
     path('<str:username>/mysubscriptions/', movie_views.mysubscriptions, name='mysubscriptions'), # This page will load all recommendations from other subscribed users
     path('<str:username>/watchlist/', movie_views.watchlist, name='watchlist'), # This page will load all watchlist items for a user
+    path('watchlist/add/', movie_views.addtowatchlist, name='addtowatchlist')
 ]

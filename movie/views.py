@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from movie.models import Recommendation, Movie, Subscription,Watch
 from django.core.paginator import Paginator
-import requests
+import requests, json, ast
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 
@@ -34,10 +34,9 @@ def searchmovie(request, username):
         #https://api.themoviedb.org/3/search/movie?api_key=61e8f206a9a1e964cc3d57e67e2c15e3&language=en-US&query=ssadak&page=1&include_adult=false
         if 'moviename' in request.GET:            
             title = request.GET['moviename']
-            baseurl = "https://api.themoviedb.org/3/search/movie?api_key=61e8f206a9a1e964cc3d57e67e2c15e3&language=en-US&query="+title+"&page=1&include_adult=false"
-            response = requests.get(baseurl).json()
-            total_movies = response['total_results']
-            movies = response['results']          
+            #baseurl = "https://y6jvg90md0.execute-api.us-east-2.amazonaws.com/dev1/get_movies?movie="+title
+            baseurl = "https://api.themoviedb.org/3/search/movie?api_key=61e8f206a9a1e964cc3d57e67e2c15e3&language=en-US&query="+title
+            response = requests.get(baseurl).json()                  
             context = {"response": response, "title": title}
 
             return render(request, "movie/searchmovies.html", context)
@@ -100,8 +99,90 @@ def mysubscriptions(request, username):
     context = {"searched_users":searched_users, "subscribed_users": subscribed_users}
     return render(request, "movie/mysubscriptions.html", context)
 
+# This method is used to retrieve user specific watchlist queue and display on page
 @login_required
 def watchlist(request, username):
-    movies = get_object_or_404(Watch, user=request.user.id)
-    context = {"watchlist": movies.watchlist}
+    user_watchlist_exist = Watch.objects.filter(user=request.user).exists()
+    context = {}
+    if user_watchlist_exist:
+        user_watch = Watch.objects.get(user=request.user)
+        movies = []
+        for movie_id in user_watch.watchlist:
+            movies.append(Movie.objects.get(id=movie_id))
+            movies = list(dict.fromkeys(movies))
+        context = {"movies_watchlist": movies}
+
     return render(request, "movie/watchlist.html", context)
+
+
+# This method is used to add movie to watch table for user
+def addtowatchlist(request):
+    movie = request.GET.get('movie')
+    movie = movie.replace("False,", "false,")
+    movie = movie.replace("True,", "true,")
+    movie = movie.replace("', '", '\", \"')
+    movie = movie.replace(", '", ', \"')
+    movie = movie.replace("': '", '\": \"')
+    movie = movie.replace("':", '\":')
+    movie = movie.replace("{'", '{\"')
+    movie = movie.replace("'}", '\"}')
+    movie = json.loads(movie)
+    title = movie["title"]
+    year = movie["release_date"]
+    user_watchlist = Watch.objects.filter(user=request.user).exists()
+    user_watch = "{}"
+    if user_watchlist:
+        user_watch = Watch.objects.get(user=request.user)
+    else:
+        user_watch, created = Watch.objects.get_or_create(user=request.user, watchlist=user_watch)
+        if created:
+            user_watch = user_watch[0]
+
+    movie_found_in_database = Movie.objects.filter(title=title, year=year).exists()
+    
+    if movie_found_in_database:
+        movie = Movie.objects.get(title=title, year=year)                
+    else:
+        movie = addMovieAndGet(movie)
+    
+    if movie.id not in user_watch.watchlist:   
+        user_watch.watchlist.append(movie.id)        
+        add_to_watchlist, created = Watch.objects.update_or_create(user=request.user, defaults={'watchlist': user_watch.watchlist},)
+    
+    return redirect('watchlist', username=request.user.username)
+
+
+
+# This method will find movie based on title and year in movie table 
+def movieExist(title, year):
+    moviefound = get_object_or_404(Movie, title=title, year=year)
+    return moviefound
+
+# This method is used to add movie into movie db and generate movie id
+def addMovieAndGet(movie):
+    title = movie["title"]
+    year = movie["release_date"]
+    cast = "{}" 
+    # runtime = movie.runtime
+    # genre = movie.genre
+    # director = movie.director
+    # writer = movie.writer
+    plot = movie["overview"]
+    language = movie["original_language"]
+    # country = movie.country
+    # awards = movie.awards
+    poster = movie["poster_path"]
+    ratings = movie["popularity"]
+    # imdbvotes = movie.imdbvotes
+    # category = movie.category    
+    platform = "{}"
+    movieadded = Movie.objects.create(title=title,
+                                      year=year,
+                                      cast=cast,                                                                            
+                                      plot=plot,                                      
+                                      poster=poster,
+                                      language=language,
+                                      ratings=ratings,                                      
+                                      platform=platform)
+    movieadded.save()
+    return movieadded

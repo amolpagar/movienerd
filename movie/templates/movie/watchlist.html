@@ -6,21 +6,21 @@
 {% block body %}
 <div class="container">
  
-      {% if user.is_authenticated %}
-      {% for wathclist_item in watchlist %}
+{% if user.is_authenticated %}
+{% for movie in movies_watchlist %}
      
 <div class="movie_card" id="bright">
   <div class="info_section">
     <div class="movie_header">
-      <img class="locandina" src="https://movieplayer.net-cdn.it/t/images/2017/12/20/bright_jpg_191x283_crop_q85.jpg"/>
-      <h1>Bright</h1>
-      <h4>2017, David Ayer</h4>
+      <img class="locandina" src="https://image.tmdb.org/t/p/w500/{{movie.poster}}"/>
+      <h1>{{movie.title}}</h1>
+      {% comment %} <h4>2017, David Ayer</h4>
       <span class="minutes">117 min</span>
-      <p class="type">Action, Crime, Fantasy</p>
+      <p class="type">Action, Crime, Fantasy</p> {% endcomment %}
     </div>
     <div class="movie_desc">
       <p class="text">
-        Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for. 
+        {{movie.plot}}
       </p>
     </div>
     <div class="movie_social">
@@ -31,9 +31,8 @@
   </div>
   <div class="blur_back bright_back"></div>
 </div>
-
-      {% endfor %}
-    {% endif %}
+{% endfor %}
+{% endif %}
 </div>
 
 {% endblock %}
