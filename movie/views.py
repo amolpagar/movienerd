@@ -61,26 +61,18 @@ def subscribe(request, username):
     else:
         return render(request, "movie/invalid-user.html")
 
-
-def myrecommendations(request, username):
-    user = User.objects.get(username=username)
+# This method is used to retrieve recommendations of user
+@login_required
+def myrecommendations(request, username):  
     movies = []
-    if user:
-        rd = Recommendation.objects.filter(user=user)
-        if len(rd) > 0: 
-            for rd_item in rd:
-                movie = Movie.objects.get(id=rd_item.movie_id)
-                movies.append(movie)
-            
-            context = {"movies": movies, "username": username}
-        else:
-            context = {"Error":"You havent recommended anything yet, recommend kar salya"}
-        
-        return render(request, "movie/myrecommendations.html", context)
-
-    else:
-        return render(request, "movie/invalid-user.html")    
-
+    context = {}
+    rd = Recommendation.objects.get(user=request.user)
+    for rd_item in rd.recommendation_list:
+        movie = Movie.objects.get(id=rd_item)
+        movies.append(movie)            
+    context = {"movies": movies, "username": username}               
+    return render(request, "movie/myrecommendations.html", context)
+    
 @login_required
 def mysubscriptions(request, username):
     searched_users = None

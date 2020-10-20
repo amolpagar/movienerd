@@ -41,7 +41,7 @@ class Recommendation(models.Model):
         return str(self.user)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    recommendation_list = ArrayField(models.IntegerField(), blank=True, null=True)
     create_dttm = models.DateTimeField(auto_now_add=True)
     update_dttm = models.DateTimeField(auto_now=True)
 

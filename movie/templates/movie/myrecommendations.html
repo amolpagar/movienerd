@@ -20,7 +20,7 @@
   <div class="movie_card" id="bright">
   <div class="info_section">
     <div class="movie_header">
-      <img class="locandina" src="{{movie_item.poster}}"/>
+      <img class="locandina" src="https://image.tmdb.org/t/p/w500/{{movie_item.poster}}"/>
       <h1>{{movie_item.title}}</h1>
       <h4>{{movie_item.year}}</h4>
       <span class="minutes">{{movie_item.runtime}}</span>
@@ -43,7 +43,7 @@
 {%endfor%}
     {% endif %}
     {% if user.is_authenticated and Error %}
-<p>Movie not found: "{{title}}"</p>
+<p>You havent made any recommendations yet. please search movie to recommend</p>
     {% endif %}
 
   </div>
