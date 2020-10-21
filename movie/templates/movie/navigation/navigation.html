@@ -15,6 +15,11 @@
         {% if user.is_authenticated %}         
         <a class="nav-link" href="{% url 'mysubscriptions' username=user.username %}">MySubscriptions</a>        
         {%endif%}
+      </li>
+       <li class="nav-item">
+        {% if user.is_authenticated %}         
+        <a class="nav-link" href="{% url 'mysubscribers' username=user.username %}">MySubscribers</a>        
+        {%endif%}
       </li>       
       <li class="nav-item">
         {% if user.is_authenticated %} 

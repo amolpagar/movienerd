@@ -30,10 +30,21 @@ urlpatterns = [
  
     path('<str:username>/', movie_views.searchmovie, name='index'), # This page is used to search movies and recommend, only visitble to logged in user
     path('<str:username>/searchmovie/', movie_views.searchmovie, name='searchmovies'), # This page is used to search movies and recommend, only visitble to logged in user
-    path('<str:username>/recommend/', movie_views.recommend, name='recommend'), # This button is used to recommend searched movies only visitble to logged in user
-    path('<str:username>/myrecommendations/', movie_views.myrecommendations, name='myrecommendations'), # This page is used to display all recommendations of users
-    path('<str:username>/subscribe/', movie_views.subscribe, name='subscribe'), # This button on myrecommendations page will subscribe user with recommendations
-    path('<str:username>/mysubscriptions/', movie_views.mysubscriptions, name='mysubscriptions'), # This page will load all recommendations from other subscribed users
-    path('<str:username>/watchlist/', movie_views.watchlist, name='watchlist'), # This page will load all watchlist items for a user
-    path('watchlist/add/', movie_views.addtowatchlist, name='addtowatchlist')
+
+
+    path('<str:username>/subscribe/', movie_views.subscribe, name='subscribe'), # POST:: This button on myrecommendations page will subscribe user with recommendations
+    path('<str:username>/mysubscriptions/', movie_views.mysubscriptions, name='mysubscriptions'), # GET:: This page will load all recommendations from other subscribed users
+    path('<str:username>/mysubscribers/', movie_views.mysubscribers, name='mysubscribers'), # GET:: This page will load all recommendations from other subscribed users
+    path('unsubscribe/<int:userid>/', movie_views.unsubscribe, name='unsubscribe'), # GET:: This page will load all recommendations from other subscribed users
+
+    # URLs for Recommendations
+    path('<str:username>/myrecommendations/', movie_views.myrecommendations, name='myrecommendations'), # GET:: This page is used to display all recommendations of users
+    path('recommendation/add/', movie_views.recommend, name='addrecommendation'), # POST:: This button is used to recommend searched movies only visitble to logged in user
+    path('recommendation/delete/<int:movieid>/', movie_views.deleterecommendation, name='deleterecommendation'),# DELETE :: Delete recommendation from users recommendation list
+
+    # URLs for watchlist
+    path('<str:username>/watchlist/', movie_views.watchlist, name='watchlist'), # GET:: This page will load all watchlist items for a user
+    path('watchlist/add/', movie_views.addtowatchlist, name='addtowatchlist'), # POST:: method to add/update watchlist
+    path('watchlist/delete/<int:movieid>/', movie_views.deletefromwatchlist, name='deletefromwatchlist') # DELETE:: method to delete movie from watchlist
+
 ]

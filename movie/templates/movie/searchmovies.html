@@ -34,7 +34,7 @@
       </div>
       <div>        
         <a class="btn btn-sm btn-primary pull-right offset-1" id="add_watchlist" href="{% url 'addtowatchlist' %}?movie={{movie}}"><i class="fa fa-plus"> Add to Watchlist</i></a>
-        <a class="btn btn-sm btn-primary pull-right" href=""><i class="fa fa-plus"> Recommend</i></a>                
+        <a class="btn btn-sm btn-primary pull-right" href="{% url 'addrecommendation' %}?movie={{movie}}"><i class="fa fa-plus"> Recommend</i></a>                
       </div>
     </div>
     <div style="background: url('https://image.tmdb.org/t/p/w500/{{movie.backdrop_path}}');" class="blur_back"></div>

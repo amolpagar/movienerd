@@ -51,7 +51,8 @@ class Subscription(models.Model):
         return str(self.user)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    subscribing_user_id = models.IntegerField(default=0)    
+    subscribing_user_id = ArrayField(models.IntegerField(), blank=True, null=True)
+    subscribers_user_id = ArrayField(models.IntegerField(), blank=True, null=True)    
     create_dttm = models.DateTimeField(auto_now_add=True)
     update_dttm = models.DateTimeField(auto_now=True)
     

@@ -3,11 +3,6 @@
 {% block body %}
 
 <div class="container">
- <div class="row">
-    <div class="col-md-12"> 
-      {% include "movie/searchbox.html" with name="user_name" placeholder="Search users.."%}       
-     </div>    
- </div>
 
    {% for each_user in searched_users %}
      <div class="row">
@@ -23,7 +18,7 @@
  <div class="row">
       <div class="col-md-3 offset-3 pt-4">
          <a href="">{{each_subscription.first_name}} {{each_subscription.last_name}}</a>
-         <a href="{% url 'unsubscribe' userid=each_subscription.id %}" class="btn btn-sm btn-danger pull-right">unsubscribe</a>                      
+         <a class="btn btn-sm btn-danger pull-right">Block</a>                      
       </div>  
  </div>
  {%endfor%}

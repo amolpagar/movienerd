@@ -24,10 +24,9 @@
         {{movie.plot}}
       </p>
     </div>
-    <div class="movie_social">
-      <ul>
-        <li><i class="fa fa-trash"></i></li>                
-      </ul>
+    <div class="movie_social">      
+        <a><i class="fa fa-check"> Watched</i></a>
+        <a href={% url 'deletefromwatchlist' movieid=movie.id %}><i class="fa fa-trash"> Remove</i></a>      
     </div>
   </div>
   <div class="blur_back bright_back"></div>

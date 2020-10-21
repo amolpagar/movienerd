@@ -35,8 +35,8 @@
       </p>
     </div>
     <div>
-        <a class="btn" href=""><i class="fa fa-plus"> Recommend</i></a>                
-      </div>
+        <a class="btn" href="{% url 'deleterecommendation' movieid=movie_item.id %}"><i class="fa fa-trash"> Remove Recommendation</i></a>                
+    </div>
   </div>
   <div style="background: url({{movie_item.poster}});" class="blur_back"></div>
 </div>   
