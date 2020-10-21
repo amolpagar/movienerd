@@ -48,6 +48,34 @@
     {% endif %}
 
 </div>
+
+{% for movie in movies %}
+     
+<div class="movie_card" id="bright">
+  <div class="info_section">
+    <div class="movie_header">
+      <img class="locandina" src="https://image.tmdb.org/t/p/w500/{{movie.poster}}"/>
+      <h1>{{movie.title}}</h1>
+       <h4>{{movie.year}}</h4>
+      {% comment %} <h4>2017, David Ayer</h4>
+      <span class="minutes">117 min</span> {% endcomment %}
+      <p class="type">Popularity: {{movie.ratings}}</p>
+    </div>
+    <div class="movie_desc">
+      <p class="text">
+        {{movie.plot}}
+      </p>
+    </div>
+    {% comment %} <div class="movie_social">      
+        <a><i class="fa fa-check"> Watched</i></a>
+        <a href={% url 'deletefromwatchlist' movieid=movie.id %}><i class="fa fa-trash"> Remove</i></a>      
+    </div> {% endcomment %}
+  </div>
+  <div class="blur_back bright_back"></div>
+</div>
+{% endfor %}
+
+
 {% comment %} 
   {% if showpagination %}
    <div class="row">

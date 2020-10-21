@@ -37,11 +37,33 @@ def searchmovie(request, username):
             #baseurl = "https://y6jvg90md0.execute-api.us-east-2.amazonaws.com/dev1/get_movies?movie="+title
             baseurl = "https://api.themoviedb.org/3/search/movie?api_key=61e8f206a9a1e964cc3d57e67e2c15e3&language=en-US&query="+title
             response = requests.get(baseurl).json()  
-            print(response)
-            print("*****************")                
+            #print(response)            
             context = {"response": response, "title": title}
 
             return render(request, "movie/searchmovies.html", context)
+        
+        subscribing_user_info = Subscription.objects.filter(user=request.user).exists()
+        rd_movies_from_subscriptions = []
+        if subscribing_user_info:
+            subscribing_users = Subscription.objects.get(user=request.user)
+            for user_id in subscribing_users.subscribing_user_id:
+                subscribing_user = User.objects.get(id=user_id)
+                subscribing_user_rd = Recommendation.objects.filter(user=subscribing_user.id).exists()
+                if subscribing_user_rd:
+                    subscribing_user_rd = Recommendation.objects.get(user=subscribing_user.id)
+                    rd_movies_from_subscriptions.append(subscribing_user_rd.recommendation_list)
+        
+        movies = []
+        for rd_movie_id in rd_movies_from_subscriptions:
+            for movie_id in rd_movie_id:
+                movie_exists = Movie.objects.filter(id=movie_id).exists()
+                if movie_exists:
+                    movie = Movie.objects.get(id=movie_id)
+                    movies.append(movie)
+
+        context = {"movies" : movies}        
+        return render(request, "movie/searchmovies.html", context)
+
     else:
         return render(request, "movie/invalid-user.html")
 
