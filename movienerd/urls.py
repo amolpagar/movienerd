@@ -32,7 +32,7 @@ urlpatterns = [
     path('<str:username>/searchmovie/', movie_views.searchmovie, name='searchmovies'), # This page is used to search movies and recommend, only visitble to logged in user
 
 
-    path('<str:username>/subscribe/', movie_views.subscribe, name='subscribe'), # POST:: This button on myrecommendations page will subscribe user with recommendations
+    path('subscribe/<int:userid>/', movie_views.subscribe, name='subscribe'), # POST:: This button on myrecommendations page will subscribe user with recommendations
     path('<str:username>/mysubscriptions/', movie_views.mysubscriptions, name='mysubscriptions'), # GET:: This page will load all recommendations from other subscribed users
     path('<str:username>/mysubscribers/', movie_views.mysubscribers, name='mysubscribers'), # GET:: This page will load all recommendations from other subscribed users
     path('unsubscribe/<int:userid>/', movie_views.unsubscribe, name='unsubscribe'), # GET:: This page will load all recommendations from other subscribed users
@@ -42,9 +42,10 @@ urlpatterns = [
     path('recommendation/add/', movie_views.recommend, name='addrecommendation'), # POST:: This button is used to recommend searched movies only visitble to logged in user
     path('recommendation/delete/<int:movieid>/', movie_views.deleterecommendation, name='deleterecommendation'),# DELETE :: Delete recommendation from users recommendation list
 
-    # URLs for watchlist
+    # URLs for watchlist = addtowatchlistfromrecommend
     path('<str:username>/watchlist/', movie_views.watchlist, name='watchlist'), # GET:: This page will load all watchlist items for a user
     path('watchlist/add/', movie_views.addtowatchlist, name='addtowatchlist'), # POST:: method to add/update watchlist
+    path('watchlist/add/<int:movieid>', movie_views.addtowatchlistfromrecommend, name='addtowatchlistfromrecommend'), # POST:: method to add/update watchlist
     path('watchlist/delete/<int:movieid>/', movie_views.deletefromwatchlist, name='deletefromwatchlist') # DELETE:: method to delete movie from watchlist
 
 ]

@@ -46,12 +46,13 @@ def searchmovie(request, username):
         rd_movies_from_subscriptions = []
         if subscribing_user_info:
             subscribing_users = Subscription.objects.get(user=request.user)
-            for user_id in subscribing_users.subscribing_user_id:
-                subscribing_user = User.objects.get(id=user_id)
-                subscribing_user_rd = Recommendation.objects.filter(user=subscribing_user.id).exists()
-                if subscribing_user_rd:
-                    subscribing_user_rd = Recommendation.objects.get(user=subscribing_user.id)
-                    rd_movies_from_subscriptions.append(subscribing_user_rd.recommendation_list)
+            if subscribing_users.subscribing_user_id:
+                for user_id in subscribing_users.subscribing_user_id:
+                    subscribing_user = User.objects.get(id=user_id)
+                    subscribing_user_rd = Recommendation.objects.filter(user=subscribing_user.id).exists()
+                    if subscribing_user_rd:
+                        subscribing_user_rd = Recommendation.objects.get(user=subscribing_user.id)
+                        rd_movies_from_subscriptions.append(subscribing_user_rd.recommendation_list)
         
         movies = []
         for rd_movie_id in rd_movies_from_subscriptions:
@@ -60,7 +61,6 @@ def searchmovie(request, username):
                 if movie_exists:
                     movie = Movie.objects.get(id=movie_id)
                     movies.append(movie)
-
         context = {"movies" : movies}        
         return render(request, "movie/searchmovies.html", context)
 
@@ -98,6 +98,10 @@ def recommend(request):
         if movieid not in user_rd.recommendation_list:
             user_rd.recommendation_list.append(movieid)
             add_recommendation, created = Recommendation.objects.update_or_create(user=request.user, defaults={"recommendation_list":user_rd.recommendation_list})
+    else:
+        recommendation_list = []
+        recommendation_list.append(movieid)         
+        user_rd, created = Recommendation.objects.get_or_create(user=request.user, recommendation_list=recommendation_list)
 
     return redirect('myrecommendations', username=request.user.username)        
 
@@ -128,9 +132,10 @@ def mysubscriptions(request, username):
     subscribed_users = []
     if mysubscriptions:
         mysubscriptions = Subscription.objects.get(user=request.user.id)
-        for each_user_id in mysubscriptions.subscribing_user_id:
-            user = User.objects.get(id=each_user_id)
-            subscribed_users.append(user)
+        if mysubscriptions.subscribing_user_id:
+            for each_user_id in mysubscriptions.subscribing_user_id:
+                user = User.objects.get(id=each_user_id)
+                subscribed_users.append(user)
 
     context = {"searched_users":searched_users, "subscribed_users": subscribed_users}
     return render(request, "movie/mysubscriptions.html", context)
@@ -141,23 +146,34 @@ def mysubscribers(request, username):
     subscriber_users = []
     if mysubscribers:
         mysubscribers = Subscription.objects.get(user=request.user.id)
-        for each_user_id in mysubscribers.subscribers_user_id:
-            user = User.objects.get(id=each_user_id)
-            subscriber_users.append(user)
+        if mysubscribers.subscribers_user_id:
+            for each_user_id in mysubscribers.subscribers_user_id:
+                user = User.objects.get(id=each_user_id)
+                subscriber_users.append(user)
 
     context = {"subscribed_users": subscriber_users}    
     return render(request, "movie/mysubscribers.html", context)
 
 @login_required
-def subscribe(request, username):
-    user = User.objects.get(username=username)
-    if user:
-        subscription = Subscription.objects.create(user=request.GET.user, subscribing_user_id=user.id)
-        subscription.save()
-        context = {}
-        return redirect('mysubscriptions', username=request.GET.username)
+def subscribe(request, userid):    
+    user_subscription_info = Subscription.objects.filter(user=request.user).exists()
+    if user_subscription_info:
+        user_subscription_info = Subscription.objects.get(user=request.user)
+        if user_subscription_info.subscribing_user_id:
+            if userid not in user_subscription_info.subscribing_user_id:
+                subscribing_user_ids_list = user_subscription_info.subscribing_user_id
+                subscribing_user_ids_list.append(userid)
+                update_subscription, created = Subscription.objects.update_or_create(user=request.user, defaults={"subscribing_user_id": subscribing_user_ids_list})
+        else:            
+            subscribing_user_ids = []
+            subscribing_user_ids.append(userid)
+            add_subscription, created = Subscription.objects.update_or_create(user=request.user, defaults={"subscribing_user_id": subscribing_user_ids})        
     else:
-        return render(request, "movie/invalid-user.html")
+        subscribing_user_ids = []
+        subscribing_user_ids.append(userid)
+        add_subscription, created = Subscription.objects.get_or_create(user=request.user, subscribing_user_id=subscribing_user_ids)
+    return redirect('mysubscriptions', username=request.user.username)
+    
 
 # This method is used to unsubscribe user
 @login_required
@@ -211,6 +227,19 @@ def addtowatchlist(request):
     
     return redirect('watchlist', username=request.user.username)
 
+def addtowatchlistfromrecommend(request,movieid):
+    user_watchlist = Watch.objects.filter(user=request.user).exists()
+    user_watch="{}"
+    if user_watchlist:
+        user_watch = Watch.objects.get(user=request.user)
+    else:
+        user_watch, created = Watch.objects.get_or_create(user=request.user, watchlist=user_watch)
+    
+    if movieid not in user_watch.watchlist:   
+        user_watch.watchlist.append(movieid)        
+        add_to_watchlist, created = Watch.objects.update_or_create(user=request.user, defaults={'watchlist': user_watch.watchlist})
+    
+    return redirect('watchlist', username=request.user.username)
 
 # common method to search movie and ifs not present then add it to Movie table
 def searchOrAddMovie(title, year, movie):
